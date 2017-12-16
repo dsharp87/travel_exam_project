@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Hello, {{logged_user.name}}!</h1>
+    <a href = '/login_registration_app/logout'>Logout</a>
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    <h4>Your trip schedules</h4>
+    <table>
+        <thead>
+            <th>Destintaton</th>
+            <th>Travel Start Date</th>
+            <th>Travel End Date</th>
+            <th>Plan</th>
+            <tbody>
+            {% for trip in my_trips %}
+            <tr>
+                <td><a href='/login_registration_app/travels/show_trip/{{trip.id}}'>{{trip.destination}}</a></td>
+                <td>{{trip.startdate}}</td>
+                <td>{{trip.enddate}}</td>
+                <td>{{trip.activity}}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </thead>
+    </table><br>
+    <h4> Other User's Travel Plans</h4>
+    <table>
+        <thead>
+            <th>Name</th>
+            <th>Destintaton</th>
+            <th>Travel Start Date</th>
+            <th>Travel End Date</th>
+            <th>Do You Want to Join?</th>
+            <tbody>
+            {% for trip in available_trips %}
+            <tr>
+                <td>{{trip.planned_by.name}}</td>
+                <td><a href='/login_registration_app/travels/show_trip/{{trip.id}}'>{{trip.destination}}</a></td>
+                <td>{{trip.startdate}}</td>
+                <td>{{trip.enddate}}</td>
+                <td><a href='/login_registration_app/travels/join_trip/{{trip.id}}'>Join</a></td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </thead>
+    </table><br>
+    <a href = '/login_registration_app/travels/add_trip_form'>Add New Trip</a>
+    <br><br>
+    <form action='/login_registration_app/logout' method='POST' id = "logout">
+        {% csrf_token %}
+        <input type="submit" value="Log Out">
+    </form>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>   
+    <a href = '/login_registration_app/logout'>Logout</a>
+    <a href="/login_registration_app/travels">Home</a>
+    </form>
+
+    <h2>{{this_trip.destination}}</h2>
+    <p>{{this_trip.planned_by.name}}</p>
+    <p>{{this_trip.activity}}</p>
+    <p>{{this_trip.startdate}}</p>
+    <p>{{this_trip.enddate}}</p>
+    <h3>Other users joining on the trip:</h3>
+    {% if joined_list %}
+        {% for user in joined_list %}
+            <p>{{user.name}}</p>
+        {% endfor %}
+    {% endif %}
+
+</body>
+</html>
